@@ -1,18 +1,5 @@
 [
-  {
-    "title": "Aakhri Salaam\n",
-    "url": "https://music.youtube.com/watch?v=muwzQyOO1fc&feature=shared"
-  },
-  {
-    "title": "WARNING: [youtube] JVtKEX90SZ0: Some tv client https formats have been skipped as they are DRM protected. The current session may have an experiment that applies DRM to all videos on the tv client. See  https://github.com/yt-dlp/yt-dlp/issues/12563  for more details.\nWARNING: [youtube] JVtKEX90SZ0: Some web client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details\nBayaan | Hasan Raheem | Rovalio - Maand (Lyric Video)\n",
-    "url": "https://www.youtube.com/watch?v=JVtKEX90SZ0"
-  },
-  {
-    "title": "DARKHAAST Full Video Song |  SHIVAAY | Arijit Singh & Sunidhi Chauhan | Ajay Devgn | T-Series\n",
-    "url": "https://www.youtube.com/watch?v=LMnJp_dSdnw"
-  },
-  {
-    "title": "Doublemint || Ek Ajnabee Haseena Se || #StartSomethingFresh\n",
-    "url": "https://www.youtube.com/watch?v=e5BbHPHpbvE"
-  }
+  "https://www.youtube.com/watch?v=JVtKEX90SZ0",
+  "https://www.youtube.com/watch?v=LMnJp_dSdnw",
+  "https://www.youtube.com/watch?v=e5BbHPHpbvE"
 ]
