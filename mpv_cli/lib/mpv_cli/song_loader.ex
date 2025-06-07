@@ -1,17 +1,17 @@
 defmodule MpvCli.SongLoader do
 
-    @json_file "data2.json"
+    # @json_file "data2.json"
     @santized_file "final_data.json"
 
-  def load_songs do
-    case File.read(@json_file) do
-      {:ok, content} -> 
-        case Jason.decode(content) do 
+  def load_songs(json_file) do
+    case File.read(json_file) do
+      {:ok, content} ->
+        case Jason.decode(content) do
           {:ok, urls} when is_list(urls) -> {:ok, urls}
           _ -> {:ok, []}
         end
       {:error, _} ->
-      IO.puts("Could not read #{@json_file}")
+      IO.puts("Could not read #{json_file}")
         []
     end
   end
