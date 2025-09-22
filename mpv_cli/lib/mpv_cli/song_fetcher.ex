@@ -9,7 +9,18 @@ defmodule MpvCli.SongFetcher do
 
   defp fetch_song(%{"url" => url}), do: fetch_song(url)
   defp fetch_song(url) when is_binary(url) do
-    {title, 0} = System.cmd("yt-dlp", ["--get-title", url], stderr_to_stdout: true)
-    %{"title" => title, "url" => url}
+    case System.cmd("yt-dlp", ["--get-title", url], stderr_to_stdout: true) do
+      {title, 0} ->
+        %{"title" => String.trim(title), "url" => url}
+      {error_output, _exit_code} ->
+        # If yt-dlp fails, use the URL as title or a default title
+        IO.puts("Warning: Failed to fetch title for #{url}: #{String.slice(error_output, 0, 100)}...")
+        %{"title" => "Unknown Title", "url" => url}
+    end
+  rescue
+    _ ->
+      # Handle any other errors (like network issues)
+      IO.puts("Error: Could not process URL #{url}")
+      %{"title" => "Error - Could not fetch", "url" => url}
   end
 end

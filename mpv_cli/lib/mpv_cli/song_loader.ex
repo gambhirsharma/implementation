@@ -8,11 +8,11 @@ defmodule MpvCli.SongLoader do
       {:ok, content} ->
         case Jason.decode(content) do
           {:ok, urls} when is_list(urls) -> {:ok, urls}
-          _ -> {:ok, []}
+          _ -> {:error, "Invalid JSON format"}
         end
-      {:error, _} ->
-      IO.puts("Could not read #{json_file}")
-        []
+      {:error, reason} ->
+        IO.puts("Could not read #{json_file}: #{inspect(reason)}")
+        {:error, "File read error"}
     end
   end
 

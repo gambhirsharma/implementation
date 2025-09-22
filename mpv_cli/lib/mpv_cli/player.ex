@@ -17,10 +17,11 @@ defmodule MpvCli.Player do
       args: ["--no-video", url]
     ])
 
-    # Get the OS PID
-    os_pid = port |> :erlang.port_info() |> Keyword.get(:os_pid)
+   #  Get the OS PID from the port after it's created.
 
-    # Store both port and title
+    os_pid = Port.info(port, :os_pid)
+
+    # Store port, title, and the retrieved os_pid in the agent's state.
     Agent.update(__MODULE__, fn _ -> %{port: port, title: title, os_pid: os_pid} end)
 
     # Start the port listener in a separate process
@@ -37,7 +38,8 @@ defmodule MpvCli.Player do
 
       %{port: port, os_pid: os_pid} when is_port(port) and is_integer(os_pid) ->
         Port.close(port)
-        System.cmd("kill", ["-9", Integer.to_string(os_pid)])
+        # System.cmd("kill", ["-9", Integer.to_string(os_pid)])
+        System.cmd("kill", [Integer.to_string(os_pid)])
         IO.puts("Stopped playback and killed mpv process with PID #{os_pid}")
         Agent.update(__MODULE__, fn _ -> nil end)
 
@@ -77,4 +79,17 @@ defmodule MpvCli.Player do
     end
   end
 
+  defp loop do
+    IO.puts("Press Ctrl+Q to stop the player")
+
+    case IO.getn("", 1) do
+      <<17>> ->  # Ctrl+Q
+        IO.puts("\nStopping player (Ctrl+Q pressed)...")
+        MpvCli.Player.stop()
+        System.halt(0)
+      _ ->
+        :timer.sleep(100)
+        loop()
+    end
+  end
 end
